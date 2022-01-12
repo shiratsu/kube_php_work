@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ssdemo-apache-php
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: ssdemo-apache-php
+---
+apiVersion: apps/v1
+kind: Deployment # リソースの種類
+metadata:
+  name: ssdemo-deployment # Deploymentの名前
+spec:
+  replicas: 2 # 起動するpod数
+  selector:
+    matchLabels:
+      app: ssdemo-apache-php
+  template:
+    metadata:
+      labels:
+        app: ssdemo-apache-php # podの名前
+    spec:
+      containers:
+      - name: ssdemo-apache-php # コンテナ名
+        image: k8sdemo/php-apache:1.0.4 # コンテナイメージ
+        imagePullPolicy: IfNotPresent # ローカルのdocker imageを使用
+        ports:
+        - containerPort: 80 # コンテナのポート
+        volumeMounts:
+        - mountPath: /var/www/html/
+          name: demo-volume
+      volumes:
+      - name: demo-volume
+        hostPath:
+          # directory location on host
+          path: /Users/ytada/Documents/k8sdemo/app
+          # this field is optional
+          type: Directory
