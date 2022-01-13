@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: ssdemo-apache-php # コンテナ名
-        image: k8sdemo/php-apache:1.0.4 # コンテナイメージ
+        image: shiratsu2009/php-docker:1.0.0 # コンテナイメージ
         imagePullPolicy: IfNotPresent # ローカルのdocker imageを使用
         ports:
         - containerPort: 80 # コンテナのポート
@@ -37,6 +37,6 @@ spec:
       - name: demo-volume
         hostPath:
           # directory location on host
-          path: /Users/ytada/Documents/k8sdemo/app
+          path: /Users/hiratsukashunsuke/vscode/kube_php_work/app
           # this field is optional
           type: Directory
