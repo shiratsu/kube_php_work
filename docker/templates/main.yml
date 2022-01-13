@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ssdemo-apache-php
+  name: ssdemo-lb
 spec:
   type: LoadBalancer
   ports:
